@@ -1,25 +1,26 @@
+
 const express = require("express");
 const cors = require("cors");
 
 const app = express();
+const PORT = process.env.PORT || 5000; // ✅ dynamic port for Render
 
-// Allow frontend at port 5173
-app.use(cors());
-
-
+app.use(cors()); 
 app.use(express.json());
 
-// Example API endpoint
+// Example REST endpoint
 app.get("/api/hello", (req, res) => {
-  res.json({ message: "Hello from Express API 🚀" });
+  res.json({ message: "Hello from Express backend!" });
 });
 
-// Example POST endpoint
-app.post("/api/echo", (req, res) => {
-  res.json({ youSent: req.body });
+// POST endpoint
+app.post("/api/message", (req, res) => {
+  const { name } = req.body;
+  res.json({ reply: `Hello, ${name}! Your data was received.` });
 });
 
-const PORT = 5000;
+// Start server
 app.listen(PORT, () => {
-  console.log(`✅ Server running on http://localhost:${PORT}`);
+  console.log(`✅ Server running on port ${PORT}`);
 });
+
